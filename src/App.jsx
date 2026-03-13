@@ -52,11 +52,7 @@ x:position*420,
 scale:active?1:0.82,
 opacity:active?1:0.45
 }}
-transition={{
-type:"spring",
-stiffness:90,
-damping:20
-}}
+transition={{type:"spring",stiffness:90,damping:20}}
 className="absolute w-[380px] bg-[#1f2937] border border-white/10 rounded-xl p-6 shadow-xl cursor-pointer"
 >
 
@@ -76,26 +72,17 @@ className="absolute w-[380px] bg-[#1f2937] border border-white/10 rounded-xl p-6
 
 {open && item.details && (
 
-<motion.div
-initial={{opacity:0}}
-animate={{opacity:1}}
-className="mt-4"
->
+<motion.div initial={{opacity:0}} animate={{opacity:1}} className="mt-4">
 
 <ul className="space-y-2 text-sm text-gray-300">
-
 {item.details.map((d,i)=>(
 <li key={i}>• {d}</li>
 ))}
-
 </ul>
 
 {item.link && (
-<a
-href={item.link}
-target="_blank"
-className="inline-flex items-center gap-2 mt-4 text-indigo-400"
->
+<a href={item.link} target="_blank"
+className="inline-flex items-center gap-2 mt-4 text-indigo-400">
 View Project <ExternalLink size={16}/>
 </a>
 )}
@@ -105,15 +92,10 @@ View Project <ExternalLink size={16}/>
 )}
 
 {type==="cert" && item.link && (
-
-<a
-href={item.link}
-target="_blank"
-className="inline-flex items-center gap-2 mt-3 text-indigo-400"
->
+<a href={item.link} target="_blank"
+className="inline-flex items-center gap-2 mt-3 text-indigo-400">
 View Certificate <ExternalLink size={16}/>
 </a>
-
 )}
 
 </motion.div>
@@ -151,13 +133,13 @@ const internships=[
 title:"Data Engineer Intern",
 company:"Southern Endocrinology & Diabetes Associates",
 period:"Dallas, TX • Jul 2025 – Aug 2025",
-summary:"Built scalable healthcare data pipelines replacing manual patient search workflows.",
+summary:"Built healthcare ETL pipelines replacing manual research workflows.",
 details:[
-"Built automated ETL pipeline using Apache Airflow and Docker saving 10+ staff hours weekly.",
-"Designed PostgreSQL schema optimized for clinical research queries.",
-"Ingested FHIR JSON from eClinicalWorks API into AWS S3.",
-"Built validation pipelines preventing duplicate patient records.",
-"Reduced patient eligibility screening time by 40%."
+"Built Airflow pipeline saving 10+ hours weekly.",
+"Designed optimized PostgreSQL schema.",
+"Ingested FHIR JSON from eClinicalWorks.",
+"Implemented validation pipelines preventing duplicates.",
+"Reduced patient screening time by 40%."
 ]
 },
 
@@ -165,12 +147,12 @@ details:[
 title:"Engineering Intern",
 company:"Honeywell Technologies",
 period:"Bengaluru • Jan 2023 – Jun 2023",
-summary:"Built diagnostic platform improving IoT device monitoring.",
+summary:"Developed IoT diagnostic platform.",
 details:[
-"Developed real-time Azure IoT Hub monitoring tool.",
-"Implemented React + C# architecture.",
-"Built event-driven pipelines with Azure Functions.",
-"Reduced diagnostic processing time by 30%."
+"Built Azure IoT monitoring tool.",
+"React + C# architecture.",
+"Event pipelines with Azure Functions.",
+"Reduced diagnostic time by 30%."
 ]
 }
 
@@ -183,31 +165,31 @@ title:"CRO Finder",
 summary:"AI platform connecting pharma sponsors with CRO partners.",
 link:"https://cro-finder.vercel.app/",
 details:[
-"Built semantic search using vector embeddings.",
-"Next.js + Supabase + pgvector architecture.",
-"Ranking algorithm evaluating CRO expertise.",
-"AI-powered vendor discovery prototype."
+"Vector embedding semantic search.",
+"Next.js + Supabase + pgvector.",
+"CRO ranking algorithm.",
+"AI vendor discovery platform."
 ]
 },
 
 {
 title:"Real-Time Graph Processing Pipeline",
-summary:"Distributed graph analytics system for taxi trip data.",
+summary:"Graph analytics system for taxi data.",
 details:[
-"Built graph pipeline using Neo4j and Docker.",
-"Implemented PageRank + BFS algorithms.",
-"Streaming ingestion using Kafka.",
-"Deployed pipeline on Kubernetes."
+"Neo4j graph pipeline.",
+"PageRank + BFS algorithms.",
+"Kafka streaming ingestion.",
+"Kubernetes deployment."
 ]
 },
 
 {
 title:"CRM Application",
-summary:"Full-stack CRM platform for textile business.",
+summary:"Full-stack CRM platform.",
 details:[
-"Customer profiles and purchase history.",
-"Management dashboard with analytics.",
-"CRUD APIs for contact management.",
+"Customer profiles & analytics.",
+"Management dashboard.",
+"CRUD APIs.",
 "Customer engagement tracking."
 ]
 }
@@ -256,11 +238,10 @@ const techStack=[
 {icon:<Cloud size={22}/>,label:"AWS"},
 {icon:<Cpu size={22}/>,label:"Docker"},
 {icon:<Cpu size={22}/>,label:"Kubernetes"},
+{icon:<Cpu size={22}/>,label:"Apache Airflow"},
 {icon:<Terminal size={22}/>,label:"Linux"}
 
 ]
-
-/* -------------------- UI -------------------- */
 
 return(
 
@@ -268,7 +249,9 @@ return(
 
 {/* HERO */}
 
-<section className="max-w-6xl mx-auto px-6 py-32">
+<section className="max-w-6xl mx-auto px-6 py-32 flex justify-between items-start">
+
+<div>
 
 <h1 className="text-6xl font-bold">Amar Dodda</h1>
 
@@ -281,7 +264,9 @@ AI platforms and real-time data pipelines.
 Graduating May 2026 • GPA 4.0
 </p>
 
-<div className="mt-10 flex gap-6">
+</div>
+
+<div>
 
 <button
 onClick={scrollToFooter}
@@ -289,13 +274,6 @@ className="bg-white text-black px-6 py-3 rounded-lg font-medium hover:opacity-90
 >
 Let's Talk
 </button>
-
-<a
-href="https://github.com/AmarDodda"
-className="border border-white/20 px-6 py-3 rounded-lg hover:bg-white/5 transition"
->
-View GitHub
-</a>
 
 </div>
 
@@ -325,7 +303,19 @@ Projects
 
 </section>
 
-{/* TECH STACK */}
+{/* CERTIFICATIONS */}
+
+<section className="max-w-6xl mx-auto px-6 mb-36">
+
+<h2 className="text-sm uppercase tracking-widest text-gray-400 mb-12">
+Certifications
+</h2>
+
+<Carousel items={certifications} type="cert"/>
+
+</section>
+
+{/* TECH STACK BELOW CERTIFICATIONS */}
 
 <section className="max-w-6xl mx-auto px-6 mb-36">
 
@@ -355,18 +345,6 @@ className="flex items-center gap-3 bg-[#1f2937] px-5 py-4 rounded-lg border bord
 ))}
 
 </div>
-
-</section>
-
-{/* CERTIFICATIONS */}
-
-<section className="max-w-6xl mx-auto px-6 mb-36">
-
-<h2 className="text-sm uppercase tracking-widest text-gray-400 mb-12">
-Certifications
-</h2>
-
-<Carousel items={certifications} type="cert"/>
 
 </section>
 
