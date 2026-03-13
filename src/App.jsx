@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react"
+import { useState } from "react"
 import { motion } from "framer-motion"
 import {
 Github,
@@ -12,7 +12,7 @@ Terminal,
 ExternalLink
 } from "lucide-react"
 
-/* -------------------- CAROUSEL COMPONENT -------------------- */
+/* -------------------- CAROUSEL -------------------- */
 
 function Carousel({items,type}){
 
@@ -21,7 +21,7 @@ const [expanded,setExpanded]=useState(null)
 
 return(
 
-<div className="relative flex justify-center items-center h-[500px]">
+<div className="relative flex justify-center items-center h-[520px]">
 
 <button
 onClick={()=>setIndex((index-1+items.length)%items.length)}
@@ -32,9 +32,9 @@ className="absolute left-0 text-gray-400 text-2xl"
 
 {items.map((item,i)=>{
 
-const offset = (i - index + items.length) % items.length
-const position = offset > items.length / 2 ? offset - items.length : offset
-const active= position===0
+const offset=(i-index+items.length)%items.length
+const position=offset>items.length/2?offset-items.length:offset
+const active=position===0
 const open=expanded===i
 
 return(
@@ -45,18 +45,17 @@ key={i}
 drag="x"
 dragConstraints={{left:0,right:0}}
 dragElastic={0.2}
-dragMomentum={true}
+dragMomentum
 onClick={()=>setExpanded(open?null:i)}
 animate={{
-x: position * 420,
-scale: position === 0 ? 1 : 0.82,
-opacity: position === 0 ? 1 : 0.45
+x:position*420,
+scale:active?1:0.82,
+opacity:active?1:0.45
 }}
 transition={{
-type: "spring",
-stiffness: 90,
-damping: 20,
-mass: 1
+type:"spring",
+stiffness:90,
+damping:20
 }}
 className="absolute w-[380px] bg-[#1f2937] border border-white/10 rounded-xl p-6 shadow-xl cursor-pointer"
 >
@@ -67,7 +66,7 @@ className="absolute w-[380px] bg-[#1f2937] border border-white/10 rounded-xl p-6
 
 <h3 className="text-xl font-semibold">{item.title}</h3>
 
-<p className="text-gray-400">{item.company || item.org}</p>
+<p className="text-gray-400">{item.company||item.org}</p>
 
 <p className="text-gray-500 text-sm">{item.period}</p>
 
@@ -136,7 +135,7 @@ className="absolute right-0 text-gray-400 text-2xl"
 
 }
 
-/* -------------------- MAIN APP -------------------- */
+/* -------------------- APP -------------------- */
 
 export default function App(){
 
@@ -154,11 +153,11 @@ company:"Southern Endocrinology & Diabetes Associates",
 period:"Dallas, TX • Jul 2025 – Aug 2025",
 summary:"Built scalable healthcare data pipelines replacing manual patient search workflows.",
 details:[
-"Built automated ETL pipeline using Apache Airflow and Docker eliminating manual patient lookup workflows and saving over 10 staff hours weekly.",
-"Designed denormalized PostgreSQL schema with optimized indexes enabling fast research queries across clinical datasets.",
-"Ingested semi-structured FHIR JSON from eClinicalWorks API and orchestrated secure ingestion into AWS S3.",
-"Implemented Python validation pipelines preventing duplicate records and ensuring healthcare data integrity.",
-"Collaborated with research coordinators to build SQL views reducing patient eligibility screening time by 40%."
+"Built automated ETL pipeline using Apache Airflow and Docker saving 10+ staff hours weekly.",
+"Designed PostgreSQL schema optimized for clinical research queries.",
+"Ingested FHIR JSON from eClinicalWorks API into AWS S3.",
+"Built validation pipelines preventing duplicate patient records.",
+"Reduced patient eligibility screening time by 40%."
 ]
 },
 
@@ -166,12 +165,12 @@ details:[
 title:"Engineering Intern",
 company:"Honeywell Technologies",
 period:"Bengaluru • Jan 2023 – Jun 2023",
-summary:"Built diagnostic platform improving IoT device monitoring efficiency.",
+summary:"Built diagnostic platform improving IoT device monitoring.",
 details:[
-"Developed Integration Framework Diagnostic Tool enabling real-time Azure IoT Hub device monitoring.",
-"Implemented scalable CRUD architecture using React frontend and C#/.NET backend.",
-"Built event-driven automation pipelines using Azure Functions and Event Grid.",
-"Reduced diagnostic processing time by 30% improving IoT maintenance workflows."
+"Developed real-time Azure IoT Hub monitoring tool.",
+"Implemented React + C# architecture.",
+"Built event-driven pipelines with Azure Functions.",
+"Reduced diagnostic processing time by 30%."
 ]
 }
 
@@ -181,35 +180,35 @@ const projects=[
 
 {
 title:"CRO Finder",
-summary:"AI-powered platform connecting pharmaceutical sponsors with CRO partners.",
+summary:"AI platform connecting pharma sponsors with CRO partners.",
 link:"https://cro-finder.vercel.app/",
 details:[
-"Designed semantic search engine using vector embeddings to match clinical trial requirements with CRO capabilities.",
-"Built full stack architecture using Next.js, Supabase and pgvector.",
-"Implemented ranking algorithms evaluating CRO expertise and operational capacity.",
-"Deployed as a SaaS prototype demonstrating AI-driven vendor discovery."
+"Built semantic search using vector embeddings.",
+"Next.js + Supabase + pgvector architecture.",
+"Ranking algorithm evaluating CRO expertise.",
+"AI-powered vendor discovery prototype."
 ]
 },
 
 {
 title:"Real-Time Graph Processing Pipeline",
-summary:"Distributed graph analytics system for NYC taxi trip data.",
+summary:"Distributed graph analytics system for taxi trip data.",
 details:[
-"Built graph analytics pipeline using Neo4j and Docker modeling NYC taxi relationships.",
-"Implemented PageRank and BFS algorithms to analyze node centrality and shortest paths.",
-"Developed distributed streaming pipeline using Kafka and Kafka Connect.",
-"Deployed infrastructure on Kubernetes (Minikube) enabling real-time ingestion of 1500+ trip events."
+"Built graph pipeline using Neo4j and Docker.",
+"Implemented PageRank + BFS algorithms.",
+"Streaming ingestion using Kafka.",
+"Deployed pipeline on Kubernetes."
 ]
 },
 
 {
 title:"CRM Application",
-summary:"Full-stack CRM platform for textile business operations.",
+summary:"Full-stack CRM platform for textile business.",
 details:[
-"Developed CRM system managing customer profiles, purchase history and textile preferences.",
-"Built management dashboard enabling centralized monitoring of customer interactions.",
-"Implemented CRUD APIs supporting contact management and campaign tracking.",
-"Enabled communication history and feedback workflows improving customer engagement."
+"Customer profiles and purchase history.",
+"Management dashboard with analytics.",
+"CRUD APIs for contact management.",
+"Customer engagement tracking."
 ]
 }
 
@@ -238,6 +237,29 @@ img:"/certs/guvi.png"
 
 ]
 
+const techStack=[
+
+{icon:<Code size={22}/>,label:"Python"},
+{icon:<Code size={22}/>,label:"Java"},
+{icon:<Code size={22}/>,label:"C++"},
+{icon:<Database size={22}/>,label:"SQL"},
+
+{icon:<Server size={22}/>,label:"React"},
+{icon:<Server size={22}/>,label:"Next.js"},
+{icon:<Server size={22}/>,label:"Node.js"},
+{icon:<Server size={22}/>,label:"Django"},
+
+{icon:<Database size={22}/>,label:"PostgreSQL"},
+{icon:<Database size={22}/>,label:"MongoDB"},
+{icon:<Database size={22}/>,label:"Neo4j"},
+
+{icon:<Cloud size={22}/>,label:"AWS"},
+{icon:<Cpu size={22}/>,label:"Docker"},
+{icon:<Cpu size={22}/>,label:"Kubernetes"},
+{icon:<Terminal size={22}/>,label:"Linux"}
+
+]
+
 /* -------------------- UI -------------------- */
 
 return(
@@ -258,6 +280,24 @@ AI platforms and real-time data pipelines.
 <p className="mt-3 text-gray-500">
 Graduating May 2026 • GPA 4.0
 </p>
+
+<div className="mt-10 flex gap-6">
+
+<button
+onClick={scrollToFooter}
+className="bg-white text-black px-6 py-3 rounded-lg font-medium hover:opacity-90 transition"
+>
+Let's Talk
+</button>
+
+<a
+href="https://github.com/AmarDodda"
+className="border border-white/20 px-6 py-3 rounded-lg hover:bg-white/5 transition"
+>
+View GitHub
+</a>
+
+</div>
 
 </section>
 
@@ -282,6 +322,39 @@ Projects
 </h2>
 
 <Carousel items={projects}/>
+
+</section>
+
+{/* TECH STACK */}
+
+<section className="max-w-6xl mx-auto px-6 mb-36">
+
+<h2 className="text-sm uppercase tracking-widest text-gray-400 mb-12">
+Tech Stack
+</h2>
+
+<div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+
+{techStack.map((t,i)=>(
+
+<div
+key={i}
+className="flex items-center gap-3 bg-[#1f2937] px-5 py-4 rounded-lg border border-white/10"
+>
+
+<div className="text-indigo-400">
+{t.icon}
+</div>
+
+<span className="text-sm text-gray-300">
+{t.label}
+</span>
+
+</div>
+
+))}
+
+</div>
 
 </section>
 
